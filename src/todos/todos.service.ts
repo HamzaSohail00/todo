@@ -17,7 +17,6 @@ class TodoService implements TodoCRUD {
 			});
 			return doc;
 		} catch (error) {
-			// eslint-disable-next-line no-console
 			console.error(error);
 			return error;
 		}
@@ -41,7 +40,6 @@ class TodoService implements TodoCRUD {
 
 			return doc;
 		} catch (error) {
-			// eslint-disable-next-line no-console
 			console.error(error);
 			return error;
 		}
@@ -52,12 +50,8 @@ class TodoService implements TodoCRUD {
 			const doc = await Todos.findOne({
 				_id: id,
 			});
-			// if (!doc) {
-			// 	return res.status(400).send({ error: 'no record available' });
-			// }
 			return doc;
 		} catch (error) {
-			// eslint-disable-next-line no-console
 			console.error(error);
 			return error;
 		}
@@ -68,12 +62,8 @@ class TodoService implements TodoCRUD {
 			const doc = await Todos.findOneAndRemove({
 				_id: id,
 			});
-			// if (!doc) {
-			// 	return res.status(400).send({ error: 'no record available' });
-			// }
 			return doc;
 		} catch (error) {
-			// eslint-disable-next-line no-console
 			console.error(error);
 			return error;
 		}
@@ -81,12 +71,6 @@ class TodoService implements TodoCRUD {
 
 	async updateById(resource: UpdateTodoDTO, id: string) {
 		try {
-			// if (resource?.status === 'Pending' && req.user.role === 'user') {
-			// 	return res.status(403).send({
-			// 		error:
-			// 			"You don't have permissions to change status from 'Done' to 'Pending' of Todo. Please contact with admin.",
-			// 	});
-			// }
 			const updatedDoc = await Todos.updateOne(
 				{ _id: id },
 				{ ...resource },
@@ -94,9 +78,6 @@ class TodoService implements TodoCRUD {
 			)
 				.lean()
 				.exec();
-			// if (!updatedDoc) {
-			// 	return res.status(400).send({ error: 'no record available' });
-			// }
 			return updatedDoc;
 		} catch (error) {
 			// eslint-disable-next-line no-console
