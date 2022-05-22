@@ -7,8 +7,8 @@ export interface CreateTodoDTO {
 	status: string;
 	createdBy: mongoose.Types.ObjectId;
 	completedAt?: Date;
-	createdAt: Date;
-	updatedAt: Date;
+	startTime: Date;
+	endTime: Date;
 }
 
 export interface UpdateTodoDTO extends Partial<CreateTodoDTO> {}
@@ -19,6 +19,8 @@ export interface DocumentTodoDTO {
 	status: string;
 	createdBy: mongoose.Types.ObjectId;
 	completedAt?: Date;
+	startTIme: Date;
+	endTime: Date;
 	createdAt: Date;
 	updatedAt: Date;
 }

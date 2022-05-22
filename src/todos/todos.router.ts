@@ -10,15 +10,17 @@ export class TodoRouter extends CommonRoutesConfig {
 	configureRoutes(): Application {
 		this.app
 			.route(`/todos`)
+			.all((req: Request, res: Response, next: NextFunction) => {
+				todosController.updateStatusToOverDue();
+				next();
+			})
 			.get(todosController.getTodo)
 			.post(todosController.createTodo);
 
 		this.app
 			.route(`/todos/:id`)
 			.all((req: Request, res: Response, next: NextFunction) => {
-				// this middleware function runs before any request to /users/:userId
-				// but it doesn't accomplish anything just yet---
-				// it simply passes control to the next applicable function below using next()
+				todosController.updateStatusToOverDue();
 				next();
 			})
 			.get(todosController.getTodoById)

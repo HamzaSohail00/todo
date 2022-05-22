@@ -6,6 +6,9 @@ services:
       - 3000:3000
     links:
       - mongodb
+    environment:
+      - CONNECTION_STRING=mongodb://admin:secret@mongodb:27017
+      - JWT_SECRET=hello123
   mongodb:
     image: mongo
     ports:

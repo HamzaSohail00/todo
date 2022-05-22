@@ -18,7 +18,8 @@ class MongooseService {
 
 	connectWithRetry = () => {
 		console.log('Attempting MongoDB connection (will retry if needed)');
-		const connectionString: string = 'mongodb://admin:secret@mongodb:27017';
+		// const connectionString: string = 'mongodb://admin:secret@mongodb:27017';
+		const connectionString: string = 'mongodb://localhost:27017/todo-db';
 		console.log({ connectionString });
 		mongoose
 			.connect(connectionString, this.mongooseOptions)

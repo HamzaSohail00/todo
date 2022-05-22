@@ -7,5 +7,4 @@ export interface UserDocument {
 	email: string;
 	createdAt: Date;
 	updatedAt: Date;
-	completedAt?: Date;
 }

@@ -1,4 +1,3 @@
-import express from 'express';
 import { CreateTodoDTO, TodoFindQuery, UpdateTodoDTO } from './dto/todo.dto';
 import { UserDocument } from './dto/document.user.dto';
 import Todos from './todos.model';
@@ -8,14 +7,25 @@ class TodoService implements TodoCRUD {
 	async create(resource: CreateTodoDTO, user: UserDocument): Promise<any> {
 		const createdBy = user._id;
 		try {
-			const { category, description } = resource;
-			const doc = await Todos.create({
+			const { category, description, startTime, endTime } = resource;
+			const timeSlotBooked = await Todos.findOne({
+				endTime: { $gte: endTime },
+				status: 'Pending',
+				createdBy,
+			});
+			console.log({ timeSlotBooked });
+			if (timeSlotBooked) {
+				throw `Please complete the previous task`;
+			}
+			const todo = await Todos.create({
 				category,
 				description,
 				status: 'Pending',
 				createdBy,
+				endTime,
+				startTime,
 			});
-			return doc;
+			return todo;
 		} catch (error) {
 			console.error(error);
 			return error;
@@ -74,6 +84,23 @@ class TodoService implements TodoCRUD {
 			const updatedDoc = await Todos.updateOne(
 				{ _id: id },
 				{ ...resource },
+				{ new: true }
+			)
+				.lean()
+				.exec();
+			return updatedDoc;
+		} catch (error) {
+			// eslint-disable-next-line no-console
+			console.error(error);
+			return error;
+		}
+	}
+
+	async updateStatusOverDue() {
+		try {
+			const updatedDoc = await Todos.updateMany(
+				{ endDate: { $lte: new Date().toISOString() }, status: 'Pending' },
+				{ status: 'Overdue' },
 				{ new: true }
 			)
 				.lean()

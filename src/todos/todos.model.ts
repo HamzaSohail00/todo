@@ -18,7 +18,15 @@ const todoSchema = new Schema(
 		status: {
 			type: String,
 			trim: true,
-			enum: ['Pending', 'Done'],
+			enum: ['Pending', 'Done', 'Overdue'],
+		},
+		startDate: {
+			type: Date,
+			required: true,
+		},
+		endDate: {
+			type: Date,
+			required: true,
 		},
 		completedAt: Date,
 		createdBy: {
