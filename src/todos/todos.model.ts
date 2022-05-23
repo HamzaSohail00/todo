@@ -9,7 +9,6 @@ const todoSchema = new Schema(
 			type: String,
 			required: true,
 			trim: true,
-			lowercase: true,
 		},
 		description: {
 			type: String,
@@ -20,11 +19,11 @@ const todoSchema = new Schema(
 			trim: true,
 			enum: ['Pending', 'Done', 'Overdue'],
 		},
-		startDate: {
+		startTime: {
 			type: Date,
 			required: true,
 		},
-		endDate: {
+		endTime: {
 			type: Date,
 			required: true,
 		},

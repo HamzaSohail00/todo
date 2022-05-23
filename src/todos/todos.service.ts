@@ -9,11 +9,10 @@ class TodoService implements TodoCRUD {
 		try {
 			const { category, description, startTime, endTime } = resource;
 			const timeSlotBooked = await Todos.findOne({
-				endTime: { $gte: endTime },
+				endTime: { $gte: new Date(endTime) },
 				status: 'Pending',
 				createdBy,
 			});
-			console.log({ timeSlotBooked });
 			if (timeSlotBooked) {
 				throw `Please complete the previous task`;
 			}
@@ -99,7 +98,7 @@ class TodoService implements TodoCRUD {
 	async updateStatusOverDue() {
 		try {
 			const updatedDoc = await Todos.updateMany(
-				{ endDate: { $lte: new Date().toISOString() }, status: 'Pending' },
+				{ endTime: { $lte: new Date() }, status: 'Pending' },
 				{ status: 'Overdue' },
 				{ new: true }
 			)
