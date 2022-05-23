@@ -9,7 +9,6 @@ export async function generateAdminAndUserToken() {
 		role: 'admin',
 		password: faker.name.findName(),
 	});
-	console.log({ admin });
 	const adminToken = await authController.newToken(admin);
 
 	const user = await User.create({
@@ -18,7 +17,25 @@ export async function generateAdminAndUserToken() {
 		role: 'user',
 		password: faker.name.findName(),
 	});
-	console.log({ user });
 	const userToken = await authController.newToken(user);
+
 	return { adminToken, userToken, user, admin };
+}
+
+export async function createUserORAdmin({
+	email,
+	role,
+	password,
+}: {
+	email?: string;
+	role: 'user' | 'admin';
+	password?: string;
+}) {
+	const user = await User.create({
+		name: faker.name.findName(),
+		email: email || faker.internet.email(),
+		role: role && 'user',
+		password: password || faker.name.findName(),
+	});
+	return user;
 }
