@@ -1,12 +1,12 @@
 import request from 'supertest';
 import app from '../../app';
-import db from '../../common/test-db-setup/test-db-setup';
+// import db from '../../common/test-db-utils/test-db-setup';
 
 let userToken: string;
 let adminToken: string;
 
 beforeAll(async () => {
-	await db.connect();
+	// await db.connect();
 	const res = await request(app).post('/signup').send({
 		email: 'user@tintash.com',
 		name: 'Hamza Sohail',
@@ -23,10 +23,10 @@ beforeAll(async () => {
 	});
 	adminToken = `Bearer ${resAdmin.body.token}`;
 });
-afterAll(async () => {
-	await db.clear();
-	await db.close();
-});
+// afterAll(async () => {
+// 	await db.clear();
+// 	await db.close();
+// });
 
 describe('Todo CRUD', () => {
 	const today = new Date();

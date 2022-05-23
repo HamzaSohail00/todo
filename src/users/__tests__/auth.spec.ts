@@ -1,15 +1,15 @@
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 import AuthController from '../auth.controller';
-import db from '../../common/test-db-setup/test-db-setup';
+// import db from '../../common/test-db-utils/test-db-setup';
 import dotenv from 'dotenv';
 
 dotenv.config();
-beforeAll(async () => await db.connect());
-afterAll(async () => {
-	await db.clear();
-	await db.close();
-});
+// beforeAll(async () => await db.connect());
+// afterAll(async () => {
+// 	await db.clear();
+// 	await db.close();
+// });
 
 describe('authentication', () => {
 	describe('newToken', () => {

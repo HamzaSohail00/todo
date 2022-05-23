@@ -1,14 +1,14 @@
 import request from 'supertest';
 import app from '../../app';
-import db from '../../common/test-db-setup/test-db-setup';
+// import db from '../../common/test-db-setup/test-db-setup';
 
 const agent = request.agent(app);
 
-beforeAll(async () => await db.connect());
-afterAll(async () => {
-	await db.clear();
-	await db.close();
-});
+// beforeAll(async () => await db.connect());
+// afterAll(async () => {
+// 	await db.clear();
+// 	await db.close();
+// });
 
 describe('Users', () => {
 	describe('User Signup /signup', () => {

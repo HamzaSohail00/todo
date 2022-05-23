@@ -22,4 +22,11 @@ const clear = async () => {
 		await collections[key].deleteMany({});
 	}
 };
-export default { connect, close, clear };
+beforeAll(async () => {
+	await connect();
+});
+afterAll(async () => {
+	await clear();
+	await close();
+});
+// export default { connect, close, clear };
