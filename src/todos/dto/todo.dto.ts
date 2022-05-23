@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
-import { Request } from 'express';
-import { UserDocument } from './document.user.dto';
+
 export interface CreateTodoDTO {
 	category: string;
 	description: string;
