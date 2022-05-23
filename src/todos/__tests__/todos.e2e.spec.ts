@@ -2,7 +2,6 @@ import request from 'supertest';
 import app from '../../app';
 import db from '../../common/test-db-setup/test-db-setup';
 
-const agent = request.agent(app);
 let userToken: string;
 let adminToken: string;
 

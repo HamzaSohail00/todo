@@ -1,8 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
 import { UserDocument } from '../todos/dto/document.user.dto';
-import jwt, { decode } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import User from './auth.model';
 import { TokenInterface } from './dtos/auth.dto';
+import dotenv from 'dotenv';
+dotenv.config();
 
 class AuthController {
 	newToken = async (user: UserDocument) => {
@@ -14,12 +16,12 @@ class AuthController {
 					email: user.email,
 				},
 			},
-			'hello123'
+			process.env.JWT_SECRET
 		);
 	};
 
 	verifyToken = async (token: string) => {
-		return jwt.verify(token, 'hello123');
+		return jwt.verify(token, process.env.JWT_SECRET);
 	};
 
 	protect = async (req: Request, res: Response, next: NextFunction) => {

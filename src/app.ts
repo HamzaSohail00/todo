@@ -1,6 +1,5 @@
 import express from 'express';
-import * as http from 'http';
-
+import dotenv from 'dotenv';
 import cors from 'cors';
 import morgan from 'morgan';
 import { CommonRoutesConfig } from './common/common.routes';
@@ -8,8 +7,9 @@ import { TodoRouter } from './todos/todos.router';
 import { AuthRouter } from './users/auth.router';
 import authController from './users/auth.controller';
 const app: express.Application = express();
-const port = 3000;
 const routes: Array<CommonRoutesConfig> = [];
+
+dotenv.config();
 // here we are adding middleware to parse all incoming requests as JSON
 app.use(express.json());
 
