@@ -1,6 +1,11 @@
+import mongoose from 'mongoose';
 import { CommonRoutesConfig } from '../common/common.routes';
 import { Application, Request, Response, NextFunction } from 'express';
 import todosController from './todos.controller';
+import {
+	requiredFieldsValidation,
+	dateValidationOnCreateTodo,
+} from './validation/todo.validation';
 
 export class TodoRouter extends CommonRoutesConfig {
 	constructor(app: Application) {
@@ -15,13 +20,24 @@ export class TodoRouter extends CommonRoutesConfig {
 				next();
 			})
 			.get(todosController.getTodo)
-			.post(todosController.createTodo);
+			.post([
+				requiredFieldsValidation,
+				dateValidationOnCreateTodo,
+				todosController.createTodo,
+			]);
 
 		this.app
 			.route(`/todos/:id`)
 			.all((req: Request, res: Response, next: NextFunction) => {
-				todosController.updateStatusToOverDue();
-				next();
+				if (
+					req.params &&
+					req.params.id &&
+					mongoose.isValidObjectId(req.params.id)
+				) {
+					todosController.updateStatusToOverDue();
+					next();
+				}
+				return res.status(400).send({ error: 'Provide a valid param' });
 			})
 			.get(todosController.getTodoById)
 			.put(todosController.updateById)

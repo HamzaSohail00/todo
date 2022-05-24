@@ -5,16 +5,6 @@ import TodoService from './todos.service';
 class TodoController {
 	async createTodo(req: Request, res: Response) {
 		try {
-			if (
-				!req.body.category ||
-				!req.body.startTime ||
-				!req.body.endTime ||
-				!req.body.description
-			) {
-				return res.status(400).send({
-					error: 'category, description, startTime & endTime is required',
-				});
-			}
 			const todo = await TodoService.create(req.body, req.user);
 			res.status(201).send({ data: todo });
 		} catch (error) {
