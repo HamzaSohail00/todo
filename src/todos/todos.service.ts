@@ -40,6 +40,9 @@ class TodoService implements TodoCRUD {
 			if (query.status) {
 				findQuery.status = query.status;
 			}
+			if (user.role === 'admin' && query.createdBy) {
+				findQuery.createdBy = query.createdBy;
+			}
 			if (user.role === 'user') {
 				findQuery.createdBy = user._id;
 			}
