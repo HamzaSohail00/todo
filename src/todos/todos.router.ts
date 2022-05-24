@@ -36,8 +36,7 @@ export class TodoRouter extends CommonRoutesConfig {
 				) {
 					todosController.updateStatusToOverDue();
 					next();
-				}
-				return res.status(400).send({ error: 'Provide a valid param' });
+				} else return res.status(400).send({ error: 'Provide a valid param' });
 			})
 			.get(todosController.getTodoById)
 			.put(todosController.updateById)

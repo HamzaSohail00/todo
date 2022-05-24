@@ -1,9 +1,10 @@
 import request from 'supertest';
 import app from '../../app';
-// import db from '../../common/test-db-utils/test-db-setup';
 import { generateAdminAndUserToken } from '../../common/test-db-utils/user.data';
 import { createTodosData } from '../../common/test-db-utils/todo.data';
 import { UserDocument } from '../dto/document.user.dto';
+import { faker } from '@faker-js/faker';
+
 let userToken: string;
 let adminToken: string;
 let user: UserDocument;
@@ -29,8 +30,8 @@ describe('Todo CRUD', () => {
 				.post('/todos')
 				.set('Authorization', userToken)
 				.send({
-					category: 'Swvl',
-					description: 'Preperation',
+					category: faker.name.findName(),
+					description: faker.lorem.paragraph(),
 					startTime: previousDay,
 					endTime: nextDay,
 				});
@@ -49,9 +50,9 @@ describe('Todo CRUD', () => {
 				.post('/todos')
 				.set('Authorization', userToken)
 				.send({
-					description: 'Preperation',
-					startTime: '2022-06-22T17:48:34.386Z',
-					endTime: '2022-10-22T17:56:34.386Z',
+					category: faker.name.findName(),
+					startTime: previousDay,
+					endTime: nextDay,
 				});
 			expect(res.statusCode).toEqual(400);
 		});
@@ -61,9 +62,9 @@ describe('Todo CRUD', () => {
 				.post('/todos')
 				.set('Authorization', userToken)
 				.send({
-					category: 'Swvl',
-					startTime: '2022-06-22T17:48:34.386Z',
-					endTime: '2022-10-22T17:56:34.386Z',
+					category: faker.name.findName(),
+					startTime: previousDay,
+					endTime: nextDay,
 				});
 			expect(res.statusCode).toEqual(400);
 		});
@@ -73,9 +74,9 @@ describe('Todo CRUD', () => {
 				.post('/todos')
 				.set('Authorization', userToken)
 				.send({
-					category: 'Swvl',
-					description: 'Preperation',
-					endTime: '2022-10-22T17:56:34.386Z',
+					category: faker.name.findName(),
+					description: faker.lorem.paragraph(),
+					endTime: nextDay,
 				});
 			expect(res.statusCode).toEqual(400);
 		});
@@ -85,9 +86,9 @@ describe('Todo CRUD', () => {
 				.post('/todos')
 				.set('Authorization', userToken)
 				.send({
-					category: 'Swvl',
-					description: 'Preperation',
-					startTime: '2022-06-22T17:48:34.386Z',
+					category: faker.name.findName(),
+					description: faker.lorem.paragraph(),
+					startTime: previousDay,
 				});
 			expect(res.statusCode).toEqual(400);
 		});
@@ -130,8 +131,8 @@ describe('Todo CRUD', () => {
 				.post('/todos')
 				.set('Authorization', userToken)
 				.send({
-					category: 'Task 2',
-					description: 'Preperation',
+					category: faker.name.findName(),
+					description: faker.lorem.paragraph(),
 					startTime: twoDaysBefore,
 					endTime: previousDay,
 				});
