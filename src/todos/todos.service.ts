@@ -83,7 +83,7 @@ class TodoService implements TodoCRUD {
 
 	async updateById(resource: UpdateTodoDTO, id: string) {
 		try {
-			const updatedDoc = await Todos.updateOne(
+			const updatedDoc = await Todos.findOneAndUpdate(
 				{ _id: id },
 				{ ...resource },
 				{ new: true }

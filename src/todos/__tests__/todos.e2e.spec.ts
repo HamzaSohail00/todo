@@ -45,6 +45,23 @@ describe('Todo CRUD', () => {
 			expect(res.body.data.status).toBe('Pending');
 		});
 
+		test('startTime should be less than endTime', async () => {
+			const res = await request(app)
+				.post('/todos')
+				.set('Authorization', userToken)
+				.send({
+					category: faker.name.findName(),
+					description: faker.lorem.paragraph(),
+					startTime: nextDay,
+					endTime: previousDay,
+				});
+			expect(res.statusCode).toEqual(400);
+			expect(res.body).toHaveProperty('error');
+			expect(res.body.error).toBe(
+				'StartTime must be less than endTime and must have a valid format'
+			);
+		});
+
 		test('category is required', async () => {
 			const res = await request(app)
 				.post('/todos')
@@ -55,6 +72,7 @@ describe('Todo CRUD', () => {
 					endTime: nextDay,
 				});
 			expect(res.statusCode).toEqual(400);
+			expect(res.body).toHaveProperty('error');
 		});
 
 		test('description is required', async () => {

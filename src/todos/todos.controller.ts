@@ -22,7 +22,7 @@ class TodoController {
 		const id: string = req.params.id;
 		const todo = await TodoService.getById(id);
 		if (!todo) {
-			return res.status(400).send({ error: 'Id not available' });
+			return res.status(404).send({ error: 'Id not found' });
 		}
 		res.status(200).send({ data: todo });
 	}
@@ -31,7 +31,7 @@ class TodoController {
 		const id: string = req.params.id;
 		const todo = await TodoService.deleteById(id);
 		if (!todo) {
-			return res.status(400).send({ error: 'Id not available' });
+			return res.status(404).send({ error: 'Id not found' });
 		}
 		res.status(200).send({ data: todo });
 	}
@@ -46,7 +46,7 @@ class TodoController {
 		}
 		const todo = await TodoService.updateById(req.body, id);
 		if (!todo) {
-			return res.status(400).send({ error: 'Id not available' });
+			return res.status(404).send({ error: 'Id not found' });
 		}
 		res.status(200).send({ data: todo });
 	}

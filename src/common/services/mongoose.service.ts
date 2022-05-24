@@ -23,7 +23,6 @@ class MongooseService {
 		// const connectionString: string = 'mongodb://admin:secret@mongodb:27017';
 		// const connectionString: string = 'mongodb://localhost:27017/todo-db';
 		const connectionString: string = process.env.CONNECTION_STRING;
-		console.log({ connectionString });
 		mongoose
 			.connect(connectionString, this.mongooseOptions)
 			.then(() => {
