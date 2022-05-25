@@ -6,7 +6,7 @@ import { CommonRoutesConfig } from './common/common.routes';
 import { TodoRouter } from './todos/todos.router';
 import { AuthRouter } from './users/auth.router';
 import authController from './users/auth.controller';
-const mongoSanitize = require('express-mongo-sanitize');
+import mongoSanitize from 'express-mongo-sanitize';
 const app: express.Application = express();
 const routes: Array<CommonRoutesConfig> = [];
 
