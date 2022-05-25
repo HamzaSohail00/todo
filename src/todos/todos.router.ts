@@ -15,8 +15,8 @@ export class TodoRouter extends CommonRoutesConfig {
 	configureRoutes(): Application {
 		this.app
 			.route(`/todos`)
-			.all((req: Request, res: Response, next: NextFunction) => {
-				todosController.updateStatusToOverDue();
+			.all(async (req: Request, res: Response, next: NextFunction) => {
+				await todosController.updateStatusToOverDue();
 				next();
 			})
 			.get(todosController.getTodo)

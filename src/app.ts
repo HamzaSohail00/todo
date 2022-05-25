@@ -6,6 +6,7 @@ import { CommonRoutesConfig } from './common/common.routes';
 import { TodoRouter } from './todos/todos.router';
 import { AuthRouter } from './users/auth.router';
 import authController from './users/auth.controller';
+const mongoSanitize = require('express-mongo-sanitize');
 const app: express.Application = express();
 const routes: Array<CommonRoutesConfig> = [];
 
@@ -24,6 +25,7 @@ app.use(morgan('dev')); //enable incoming request logging in dev mode
 // after sending the Express.js application object to have the routes added to our app!
 routes.push(new AuthRouter(app));
 app.use('/', authController.protect);
+app.use(mongoSanitize());
 routes.push(new TodoRouter(app));
 
 export default app;
